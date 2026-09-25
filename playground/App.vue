@@ -3,8 +3,8 @@ import { ref, watchEffect } from 'vue';
 import { Mail, Settings, Trash, User, LogOut } from '@manthan/icons';
 import {
   Accordion, AccordionItem, Alert, Avatar, Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
-  Checkbox, Dialog, designStyles, Field, Heading, Icon, Input, Menu, MenuItem, MenuLabel, MenuSeparator, Pagination, Popover,
-  Progress, ProgressCircle, Radio, RadioGroup, Select, Slider, Switch, Tabs, TabsContent, TabsList, TabsTrigger, toast, Toaster, Tooltip,
+  Calendar, Checkbox, Combobox, CommandDialog, DatePicker, Dialog, designStyles, Field, Heading, Icon, Input, Menu, MenuItem, MenuLabel, MenuSeparator, Pagination, Popover,
+  Progress, ProgressCircle, Radio, RadioGroup, Select, Slider, Switch, Tabs, TabsContent, TabsList, TabsTrigger, toast, Toaster, ToggleGroup, ToggleGroupItem, Tooltip,
 } from '../src/index';
 
 const params = new URLSearchParams(location.search);
@@ -14,6 +14,13 @@ const volume = ref(40);
 const plan = ref('pro');
 const agree = ref(true);
 const page = ref(4);
+const framework = ref<string | null>('vue');
+const due = ref<string | null>(null);
+const range = ref<string | null | string[]>('week');
+const commands = [
+  { value: 'profile', label: 'Profile', group: 'Settings', shortcut: 'mod+p' },
+  { value: 'glass', label: 'Switch to Glassmorphism', group: 'Styles' },
+];
 watchEffect(() => {
   document.documentElement.dataset.mnStyle = style.value;
   document.documentElement.dataset.mnTheme = dark.value ? 'dark' : 'light';
@@ -88,6 +95,20 @@ watchEffect(() => {
         <div class="flex items-center gap-2"><Avatar alt="Grace Hopper" /><Avatar alt="Alan Turing" tone="success" /><Badge>New</Badge></div>
       </div>
     </div>
+    <div class="grid gap-6 md:grid-cols-2">
+      <Card>
+        <Field label="Framework">
+          <Combobox v-model="framework" placeholder="Search…" :options="[{ value: 'react', label: 'React', group: 'UI' }, { value: 'vue', label: 'Vue', group: 'UI' }, { value: 'svelte', label: 'Svelte', group: 'UI' }, { value: 'nuxt', label: 'Nuxt', group: 'Meta' }]" />
+        </Field>
+        <Field label="Due date"><DatePicker v-model="due" name="due" /></Field>
+        <ToggleGroup v-model="range" aria-label="Range">
+          <ToggleGroupItem value="day">Day</ToggleGroupItem><ToggleGroupItem value="week">Week</ToggleGroupItem><ToggleGroupItem value="month">Month</ToggleGroupItem>
+        </ToggleGroup>
+        <p class="text-sm text-fg-muted">Selected: {{ framework }} · {{ due ?? 'no date' }} · {{ range }}</p>
+      </Card>
+      <Card><Calendar v-model="due" /></Card>
+    </div>
+    <CommandDialog :options="commands" @select="(v) => (v === 'glass' ? (style = 'glass') : toast.info(v))" />
     <Accordion>
       <AccordionItem title="Is it accessible?" default-open>Yes: native elements and WAI-ARIA patterns.</AccordionItem>
       <AccordionItem title="Can I theme it?">Eleven styles plus your own tokens.</AccordionItem>

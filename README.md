@@ -48,6 +48,7 @@ Set the style on `<html data-mn-style="neu" data-mn-theme="dark">`: `default`, `
 | Navigation | `Tabs` (+ `TabsList`, `TabsTrigger`, `TabsContent`), `Accordion` + `AccordionItem`, `Breadcrumb`, `Pagination` (`v-model:page`) |
 | Overlays | `Dialog` (`v-model:open`, `placement` for drawers), `Popover`, `Menu` (+ `MenuItem`, `MenuLabel`, `MenuSeparator`), `Tooltip`, `Toaster` + `toast()` |
 | Feedback | `Alert`, `Progress`, `ProgressCircle`, `Spinner`, `Skeleton` |
+| Advanced | `Combobox` (`v-model`, filtering, groups), `Command` + `CommandDialog` (⌘K, `v-model:open`), `Calendar`, `DatePicker` (ISO `YYYY-MM-DD`, `name` for forms), `ToggleGroup` + `ToggleGroupItem` |
 
 Overlay triggers are plain slot content: Manthan wires the first element in the `#trigger` slot (or the default slot for `Tooltip`) to the native Popover API. Recipes and helpers from `@manthan/base` are re-exported.
 

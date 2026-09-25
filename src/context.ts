@@ -49,3 +49,11 @@ export interface RadioGroupContext {
   disabled: ComputedRef<boolean | undefined>;
 }
 export const RadioGroupKey: InjectionKey<RadioGroupContext> = Symbol('mn-radio-group');
+
+export interface ToggleGroupContext {
+  isPressed: (value: string) => boolean;
+  toggle: (value: string) => void;
+  itemClass: ComputedRef<string>;
+  disabled: ComputedRef<boolean | undefined>;
+}
+export const ToggleGroupKey: InjectionKey<ToggleGroupContext> = Symbol('mn-toggle-group');
