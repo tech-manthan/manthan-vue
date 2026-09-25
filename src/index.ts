@@ -24,6 +24,8 @@ export { default as DatePicker } from './components/DatePicker.vue';
 export { default as Dialog } from './components/Dialog.vue';
 export { default as Field } from './components/Field.vue';
 export { default as FileUpload } from './components/FileUpload.vue';
+export { default as Chart } from './components/Chart.vue';
+export { default as Stat } from './components/Stat.vue';
 export { default as Heading } from './components/Heading.vue';
 export { default as Icon } from './components/Icon.vue';
 export { default as Input } from './components/Input.vue';
