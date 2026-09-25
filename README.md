@@ -38,6 +38,28 @@ const email = ref('');
 
 Set the style on `<html data-mn-style="neu" data-mn-theme="dark">`: `default`, `glass`, `neu`, `brutal`, `material`, `fluent`, `clay`, `retro`, `neon`, `minimal`, `skeuo`.
 
+## Forms
+
+```vue
+<script setup lang="ts">
+import { useForm, rules, Field, Input, Checkbox, FileUpload, Button } from '@manthan/vue';
+const form = useForm({
+  initialValues: { email: '', terms: false },
+  rules: { email: [rules.required(), rules.email()], terms: rules.required('Accept the terms.') },
+  onSubmit: async (values) => save(values),
+});
+</script>
+
+<template>
+  <form @submit="form.handleSubmit">
+    <Field label="Email" :error="form.errors.value.email"><Input v-bind="form.register('email')" /></Field>
+    <Checkbox label="I agree" v-bind="form.register('terms')" />
+    <FileUpload name="avatar" accept="image/*" :max-size="2_000_000" />
+    <Button type="submit" :loading="form.submitting.value">Save</Button>
+  </form>
+</template>
+```
+
 ## Components
 
 | Group | Components |
@@ -48,7 +70,7 @@ Set the style on `<html data-mn-style="neu" data-mn-theme="dark">`: `default`, `
 | Navigation | `Tabs` (+ `TabsList`, `TabsTrigger`, `TabsContent`), `Accordion` + `AccordionItem`, `Breadcrumb`, `Pagination` (`v-model:page`) |
 | Overlays | `Dialog` (`v-model:open`, `placement` for drawers), `Popover`, `Menu` (+ `MenuItem`, `MenuLabel`, `MenuSeparator`), `Tooltip`, `Toaster` + `toast()` |
 | Feedback | `Alert`, `Progress`, `ProgressCircle`, `Spinner`, `Skeleton` |
-| Advanced | `DataTable` (sort, search, `v-model:selected`, pagination, `#cell-<key>` slots), `Combobox` (`v-model`, filtering, groups), `Command` + `CommandDialog` (⌘K, `v-model:open`), `Calendar`, `DatePicker` (ISO `YYYY-MM-DD`, `name` for forms), `ToggleGroup` + `ToggleGroupItem` |
+| Advanced | `FileUpload` (drag and drop, paste, type/size/count checks), `useForm`, `DataTable` (sort, search, `v-model:selected`, pagination, `#cell-<key>` slots), `Combobox` (`v-model`, filtering, groups), `Command` + `CommandDialog` (⌘K, `v-model:open`), `Calendar`, `DatePicker` (ISO `YYYY-MM-DD`, `name` for forms), `ToggleGroup` + `ToggleGroupItem` |
 
 Overlay triggers are plain slot content: Manthan wires the first element in the `#trigger` slot (or the default slot for `Tooltip`) to the native Popover API. Recipes and helpers from `@manthan/base` are re-exported.
 
