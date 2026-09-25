@@ -36,5 +36,5 @@ onBeforeUnmount(() => roving?.destroy());
 </script>
 
 <template>
-  <div ref="el" role="group" :aria-orientation="orientation" :class="s.root()"><slot /></div>
+  <div ref="el" role="group" :data-orientation="orientation" :class="s.root()"><slot /></div>
 </template>

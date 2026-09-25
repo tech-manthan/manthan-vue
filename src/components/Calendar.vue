@@ -91,14 +91,14 @@ const choose = (date: ISODate) => {
       </thead>
       <tbody>
         <tr v-for="week in weeks" :key="week[0]!.date">
-          <td v-for="day in week" :key="day.date" :class="s.cell()">
+          <td v-for="day in week" :key="day.date" :class="s.cell()" :aria-selected="day.date === model || undefined">
             <button
               type="button"
               :data-date="day.date"
               :data-outside="day.inMonth ? undefined : ''"
               :data-today="day.isToday ? '' : undefined"
               :aria-current="day.isToday ? 'date' : undefined"
-              :aria-selected="day.date === model || undefined"
+              :data-selected="day.date === model ? '' : undefined"
               :aria-label="formatDate(day.date, locale, { dateStyle: 'full' })"
               :tabindex="day.date === focused ? 0 : -1"
               :disabled="isDateDisabled(day.date, constraints)"
