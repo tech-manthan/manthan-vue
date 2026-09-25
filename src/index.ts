@@ -19,6 +19,7 @@ export { default as Checkbox } from './components/Checkbox.vue';
 export { default as Combobox } from './components/Combobox.vue';
 export { default as Command } from './components/Command.vue';
 export { default as CommandDialog } from './components/CommandDialog.vue';
+export { default as DataTable } from './components/DataTable.vue';
 export { default as DatePicker } from './components/DatePicker.vue';
 export { default as Dialog } from './components/Dialog.vue';
 export { default as Field } from './components/Field.vue';

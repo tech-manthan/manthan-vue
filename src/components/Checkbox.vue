@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue';
+import { computed, useAttrs, ref, watchEffect } from 'vue';
 import { Check, Minus } from '@manthan/icons';
 import { checkbox, type Tone } from '@manthan/base';
 import { useFieldAttrs } from '../context';
@@ -22,12 +22,19 @@ const el = ref<HTMLInputElement>();
 watchEffect(() => {
   if (el.value) el.value.indeterminate = !!props.indeterminate;
 });
+defineOptions({ inheritAttrs: false });
+const attrs = useAttrs();
+/** Non-class attributes (aria-*, data-*, events) belong on the native input. */
+const inputAttrs = computed(() => {
+  const { class: _class, style: _style, ...rest } = attrs;
+  return rest;
+});
 const fieldAttrs = useFieldAttrs(props);
 const s = computed(() => checkbox({ size: props.size, tone: props.tone }));
 </script>
 
 <template>
-  <component :is="label || description || $slots.default ? 'label' : 'span'" :class="s.label()">
+  <component :is="label || description || $slots.default ? 'label' : 'span'" :class="s.label(attrs.class as string)" :style="attrs.style as string">
     <span :class="s.root()">
       <input
         ref="el"
@@ -35,7 +42,7 @@ const s = computed(() => checkbox({ size: props.size, tone: props.tone }));
         type="checkbox"
         :name="name"
         :value="value"
-        v-bind="fieldAttrs()"
+        v-bind="{ ...inputAttrs, ...fieldAttrs() }"
         :aria-checked="indeterminate ? 'mixed' : undefined"
         :class="s.input()"
       />
