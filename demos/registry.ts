@@ -3,6 +3,7 @@ import Button from '../src/components/Button.vue';
 import Input from '../src/components/Input.vue';
 import Dialog from '../src/components/Dialog.vue';
 import DataTable from '../src/components/DataTable.vue';
+import Chart from '../src/components/Chart.vue';
 
 const rows = [
   { id: 'INV-1001', customer: 'Ada Lovelace', status: 'Paid' },
@@ -14,6 +15,8 @@ const columns = [
   { key: 'customer', header: 'Customer' },
   { key: 'status', header: 'Status' },
 ];
+const chartData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map((month, i) => ({ month, revenue: 30 + i * 3 }));
+const chartSeries = [{ key: 'revenue', label: 'Revenue' }];
 
 export const demos: Record<string, () => ReturnType<typeof h>> = {
   button: () => h(Button, { variant: 'soft', tone: 'primary' }, () => 'Click me'),
@@ -31,4 +34,5 @@ export const demos: Record<string, () => ReturnType<typeof h>> = {
       },
     ),
   'data-table': () => h(DataTable, { columns, rows, pageSize: 3 }),
+  chart: () => h(Chart, { type: 'area', data: chartData, x: 'month', series: chartSeries, height: 200 }),
 };
