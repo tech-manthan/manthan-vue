@@ -6,5 +6,5 @@ const slug = new URLSearchParams(location.search).get('c');
 const Demo = slug ? demos[slug] : undefined;
 
 createApp({
-  render: () => (Demo ? Demo() : h('p', `Demo not found for "${slug}".`)),
+  render: () => (Demo ? h(Demo) : h('p', `Demo not found for "${slug}".`)),
 }).mount('#app');

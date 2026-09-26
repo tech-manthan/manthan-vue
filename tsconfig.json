@@ -12,5 +12,5 @@
     "noEmit": true,
     "ignoreDeprecations": "6.0"
   },
-  "include": ["src", "test", "playground", "env.d.ts"]
+  "include": ["src", "test", "playground", "demos", "env.d.ts"]
 }
